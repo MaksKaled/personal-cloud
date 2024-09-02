@@ -1,3 +1,4 @@
+import CreateFolder from "./components/CreateFolder"
 import FileUpload from "./components/FileUpload"
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
   return (
     <>
      <FileUpload/>
+     <CreateFolder/>
     </>
   )
 }
