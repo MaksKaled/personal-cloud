@@ -1,10 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const connectDB = require('./config/db')
 
 const app = express();
 app.use(cors());
 app.use(express.json())
+
+connectDB();
 
 const uploadRouter = require('./routes/uploadRoutes')
 const folderRouter = require('./routes/folderRoutes')

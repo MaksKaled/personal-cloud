@@ -1,10 +1,11 @@
 import React,{useState} from 'react'
 import axios from 'axios'
-
+import { useDispatch } from 'react-redux'
+import { fetchFiles } from '../redux/actions/fileThunks'
 const CreateFolder = () => {
     const [folderName,setFolderName] = useState('')
     const [message,setMessage] = useState('')
-
+    const dispatch = useDispatch()
     const handleInputChange = (e) => {
         setFolderName(e.target.value);
     }
@@ -16,6 +17,8 @@ const CreateFolder = () => {
                 folderPath:folderName,
             })
             setMessage('папка успешно создана!');
+            dispatch(fetchFiles())
+            setFolderName('')
         } catch (error) {
             setMessage('ошибка при создании папки: ' + error.message.data.message)
         }

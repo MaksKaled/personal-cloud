@@ -10,7 +10,7 @@ router.post('/newFolder', (req, res) => {
       return res.status(400).json({ message: 'Не указан путь для создания папки' });
     }
   
-    fs.mkdir(folderPath, { recursive: true }, (err) => {
+    fs.mkdir(`uploads/${folderPath}`, { recursive: true }, (err) => {
       if (err) {
         return res.status(500).json({ message: 'Ошибка при создании папки', error: err.message });
       }
