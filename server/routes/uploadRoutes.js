@@ -1,7 +1,7 @@
 const path = require('path');
 const multer = require('multer');
 const express = require('express')
-
+const File = require('../models/File')
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -19,17 +19,31 @@ const storage = multer.diskStorage({
         
 const upload = multer({storage})
 
-router.post('/upload',upload.single('file'),(req,res)=> {
-    const file = req.file
-    res.json({
-        message:'файл успешно загружен',
-        file:{
+router.post('/upload',upload.single('file'), async (req,res)=> {
+    try {
+        const file = req.file;
+
+        const fileData = {
             filename:file.filename,
             mimetype:file.mimetype,
             path:file.path,
-            size:file.size
+            size:file.size,
+            isDirectory: false,
         }
-    });
+
+        const newFile = new File(fileData);
+        await newFile.save();
+
+        res.json({
+            message: 'Файл успешно загружен и сохранен в базе данных',
+            file:newFile
+        })
+    } catch (error) {
+        console.error('Ошибка при загрузке файла:', error);
+        res.status(500).json({ message: 'Ошибка при загрузке файла' });
+    }
+   
+   
 })
 
 module.exports = router;
