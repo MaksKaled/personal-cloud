@@ -2,6 +2,9 @@ import React,{useState} from 'react'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { fetchFiles } from '../redux/actions/fileThunks'
+import { SERVER_URL } from '../envVariables'
+
+
 const CreateFolder = () => {
     const [folderName,setFolderName] = useState('')
     const [message,setMessage] = useState('')
@@ -13,14 +16,19 @@ const CreateFolder = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/newFolder',{
+            const response = await axios.post(`${SERVER_URL}/api/newFolder`,{
                 folderPath:folderName,
             })
             setMessage('папка успешно создана!');
             dispatch(fetchFiles())
             setFolderName('')
         } catch (error) {
-            setMessage('ошибка при создании папки: ' + error.message.data.message)
+            if(error.response && error.response.data && error.response.data.message){
+                setMessage('ошибка при создании папки: ' + error.message.data.message)
+            }else{
+                setMessage('ошибка при создании папки: ' + error.message)
+            }
+            
         }
     }
   return (

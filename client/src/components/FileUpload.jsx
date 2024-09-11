@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addFile } from '../redux/actions/fileActions';
 import store from '../redux/store';
+import { SERVER_URL } from '../envVariables'
+
 const FileUpload = () => {
   const [file, setFile] = useState(null);
   const dispatch = useDispatch();
@@ -21,9 +23,9 @@ const FileUpload = () => {
     formData.append('file', file);
   
     try {
-      const response = await axios.post('http://localhost:5000/api/upload', formData, {
+      const response = await axios.post(`${SERVER_URL}/api/upload`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data; charset=utf-8'
+          'Content-Type': 'multipart/form-data' 
           
         },
       });
