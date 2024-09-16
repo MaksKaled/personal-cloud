@@ -20,7 +20,7 @@ export const  StyledIcon = styled.img`
 `;
 
 export const  FileName =  styled.p`
-    
+    margin:0px;
     max-width: 100px;
     overflow:hidden;
     text-overflow:ellipsis;
