@@ -10,7 +10,7 @@ app.use(express.json())
 connectDB();
 
 const uploadRouter = require('./routes/uploadRoutes')
-const folderRouter = require('./routes/folderRoutes')
+const folderRouter = require('./routes/addFolderRoutes')
 const getFileRouter = require('./routes/getFileRoutes')
 
 app.use('/upload',express.static(path.join(__dirname,'uploads')))

@@ -30,7 +30,7 @@ const FileUpload = () => {
         },
       });
   
-      // Выводим весь ответ сервера
+      
       console.log('Ответ от сервера:', response.data);
   
       if (response.data && response.data.file) {
